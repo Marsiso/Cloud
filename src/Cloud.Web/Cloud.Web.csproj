@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Cloud.Application\Cloud.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
+    </ItemGroup>
+
 </Project>
