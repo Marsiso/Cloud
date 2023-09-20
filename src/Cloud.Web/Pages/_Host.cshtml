@@ -7,7 +7,7 @@
 @namespace Cloud.Web.Pages
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <title>Cloud</title>
 
@@ -15,13 +15,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <base href="~/"/>
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet"/>
 
-    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
+    <component type="typeof(HeadOutlet)" render-mode="Server"/>
 </head>
 <body>
 
-<component type="typeof(App)" render-mode="ServerPrerendered"/>
+<component type="typeof(App)" render-mode="Server"/>
 
+<script src="_content/MudBlazor/MudBlazor.min.js"></script>
 <script src="_framework/blazor.server.js"></script>
 </body>
 </html>

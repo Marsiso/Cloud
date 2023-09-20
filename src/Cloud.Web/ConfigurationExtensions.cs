@@ -1,4 +1,7 @@
-﻿using Cloud.Data;
+﻿using System.Globalization;
+using Cloud.Application.ViewModels.Shared;
+using Cloud.Data;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,6 +52,14 @@ public static class ConfigurationExtensions
         return services;
     }
 
+    public static IServiceCollection AddViewModels(this IServiceCollection services)
+    {
+        services.AddScoped<MainLayoutViewModel>();
+        services.AddScoped<CultureSelectorViewModel>();
+
+        return services;
+    }
+
     public static WebApplication UseSqliteInitializer(this WebApplication app)
     {
         var services = app.Services;
@@ -56,7 +67,7 @@ public static class ConfigurationExtensions
 
         using var serviceScope = services.CreateScope();
 
-        var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+        using var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
 
         if (env.IsDevelopment())
         {
@@ -67,6 +78,22 @@ public static class ConfigurationExtensions
         {
             context.Database.EnsureCreated();
         }
+
+        return app;
+    }
+
+    public static WebApplication UseLocalizationResources(this WebApplication app)
+    {
+        var services = app.Services;
+
+        var supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("cs") };
+
+        app.UseRequestLocalization(new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new RequestCulture("en"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures
+        });
 
         return app;
     }
