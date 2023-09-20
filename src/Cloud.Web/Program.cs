@@ -7,8 +7,12 @@ var services = builder.Services;
 var config = builder.Configuration;
 var env = builder.Environment;
 
+services.AddControllers();
+services.AddLocalization(options => options.ResourcesPath = "Resources");
+
 services.AddRazorPages();
 services.AddServerSideBlazor();
+services.AddViewModels();
 
 services.AddMudServices();
 
@@ -31,8 +35,11 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseLocalizationResources();
+
 app.UseRouting();
 
+app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
