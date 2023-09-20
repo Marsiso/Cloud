@@ -12,7 +12,7 @@ public class PasswordHasher
 
     public static (string, string) HashPassword(string? password)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(password, nameof(password));
+        ArgumentException.ThrowIfNullOrEmpty(password, nameof(password));
 
         Span<byte> passwordBytes = stackalloc byte[password.Length];
         Encoding.UTF8.GetBytes(password, passwordBytes);
@@ -28,9 +28,9 @@ public class PasswordHasher
 
     public static PasswordVerification VerifyPassword(string? password, string? key, string? salt)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(password, nameof(password));
-        ArgumentException.ThrowIfNullOrWhiteSpace(key, nameof(key));
-        ArgumentException.ThrowIfNullOrWhiteSpace(salt, nameof(salt));
+        ArgumentException.ThrowIfNullOrEmpty(password, nameof(password));
+        ArgumentException.ThrowIfNullOrEmpty(key, nameof(key));
+        ArgumentException.ThrowIfNullOrEmpty(salt, nameof(salt));
 
         Span<byte> passwordBytes = stackalloc byte[password.Length];
         Encoding.UTF8.GetBytes(password, passwordBytes);
