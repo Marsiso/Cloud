@@ -5,52 +5,54 @@ namespace Cloud.Application.ViewModels;
 
 public class ViewModelBase : INotifyPropertyChanged
 {
-	public delegate Task ViewModelAfterRenderHandler();
-	public delegate Task ViewModelInitializedHandler();
-	public delegate Task ViewModelParametersSetHandler();
+    public delegate Task ViewModelAfterRenderHandler();
 
-	private bool _busy;
+    public delegate Task ViewModelInitializedHandler();
 
-	public bool Busy
-	{
-		get => _busy;
-		set => SetValue(ref _busy, value);
-	}
+    public delegate Task ViewModelParametersSetHandler();
 
-	public event PropertyChangedEventHandler? PropertyChanged;
-	public event ViewModelInitializedHandler? ViewModelInitialized;
-	public event ViewModelAfterRenderHandler? ViewModelAfterRender;
-	public event ViewModelParametersSetHandler? ViewModelParametersSet;
+    private bool _busy;
 
-	protected void OnPropertyChanged([CallerMemberName] string propertyName = default!)
-	{
-		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-	}
+    public bool Busy
+    {
+        get => _busy;
+        set => SetValue(ref _busy, value);
+    }
 
-	protected void SetValue<TItem>(ref TItem field, TItem value, [CallerMemberName] string propertyName = default!)
-	{
-		if (EqualityComparer<TItem>.Default.Equals(field, value))
-		{
-			return;
-		}
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public event ViewModelInitializedHandler? ViewModelInitialized;
+    public event ViewModelAfterRenderHandler? ViewModelAfterRender;
+    public event ViewModelParametersSetHandler? ViewModelParametersSet;
 
-		field = value;
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = default!)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
-		OnPropertyChanged(propertyName);
-	}
+    protected void SetValue<TItem>(ref TItem field, TItem value, [CallerMemberName] string propertyName = default!)
+    {
+        if (EqualityComparer<TItem>.Default.Equals(field, value))
+        {
+            return;
+        }
 
-	public Task OnViewModelInitialized()
-	{
-		return ViewModelInitialized?.Invoke() ?? Task.CompletedTask;
-	}
+        field = value;
 
-	public Task OnViewModelAfterRender()
-	{
-		return ViewModelAfterRender?.Invoke() ?? Task.CompletedTask;
-	}
+        OnPropertyChanged(propertyName);
+    }
 
-	public Task OnViewModelParametersSet()
-	{
-		return ViewModelParametersSet?.Invoke() ?? Task.CompletedTask;
-	}
+    public Task OnViewModelInitialized()
+    {
+        return ViewModelInitialized?.Invoke() ?? Task.CompletedTask;
+    }
+
+    public Task OnViewModelAfterRender()
+    {
+        return ViewModelAfterRender?.Invoke() ?? Task.CompletedTask;
+    }
+
+    public Task OnViewModelParametersSet()
+    {
+        return ViewModelParametersSet?.Invoke() ?? Task.CompletedTask;
+    }
 }
