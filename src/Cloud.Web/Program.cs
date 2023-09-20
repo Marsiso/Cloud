@@ -1,4 +1,5 @@
 using Cloud.Web;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ var env = builder.Environment;
 
 services.AddRazorPages();
 services.AddServerSideBlazor();
+
+services.AddMudServices();
 
 services.AddSqliteDatabaseSession(config, env);
 
