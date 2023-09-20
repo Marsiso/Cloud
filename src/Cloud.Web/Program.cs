@@ -1,3 +1,5 @@
+using Cloud.Web;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
@@ -7,7 +9,11 @@ var env = builder.Environment;
 services.AddRazorPages();
 services.AddServerSideBlazor();
 
+services.AddSqliteDatabaseSession(config, env);
+
 var app = builder.Build();
+
+app.UseSqliteInitializer();
 
 if (env.IsDevelopment())
 {
