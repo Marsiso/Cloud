@@ -10,4 +10,15 @@
       <ProjectReference Include="..\Cloud.Data\Cloud.Data.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Application\Users\Commands\" />
+      <Folder Include="Application\Users\Mappings\" />
+      <Folder Include="Application\Users\Queries\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="12.0.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    </ItemGroup>
+
 </Project>
