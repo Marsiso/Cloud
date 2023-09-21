@@ -7,15 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cloud.Core\Cloud.Core.csproj" />
+        <ProjectReference Include="..\Cloud.Core\Cloud.Core.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MudBlazor" Version="6.10.0" />
+        <PackageReference Include="MudBlazor" Version="6.10.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ViewModels\Pages\" />
+        <Folder Include="ViewModels\Pages\"/>
     </ItemGroup>
 
 </Project>

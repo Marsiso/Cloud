@@ -1,3 +1,5 @@
+using Cloud.Application.Application.Users;
+using Cloud.Core.Application.Users;
 using Cloud.Web;
 using MudBlazor.Services;
 
@@ -17,6 +19,8 @@ services.AddViewModels();
 services.AddMudServices();
 
 services.AddSqliteDatabaseSession(config, env);
+services.AddPasswordHasher();
+services.AddAutoMapper(typeof(UserProfile));
 
 var app = builder.Build();
 
@@ -44,3 +48,7 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+public partial class Program
+{
+}

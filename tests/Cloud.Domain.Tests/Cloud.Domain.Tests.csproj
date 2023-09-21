@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Cloud.Domain\Cloud.Domain.csproj" />
+        <ProjectReference Include="..\..\src\Cloud.Domain\Cloud.Domain.csproj"/>
     </ItemGroup>
 
 </Project>

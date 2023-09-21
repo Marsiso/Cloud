@@ -23,8 +23,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Cloud.Application\Cloud.Application.csproj" />
-      <ProjectReference Include="..\Cloud.Core.Tests\Cloud.Core.Tests.csproj" />
+        <ProjectReference Include="..\..\src\Cloud.Application\Cloud.Application.csproj"/>
+        <ProjectReference Include="..\Cloud.Core.Tests\Cloud.Core.Tests.csproj"/>
     </ItemGroup>
 
 </Project>

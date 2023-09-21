@@ -4,18 +4,18 @@
 
 @inject IStringLocalizer<App> Localizer
 
-<MudThemeProvider/>
-<MudDialogProvider/>
-<MudSnackbarProvider/>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="25" Color="Color.Transparent">
-        <MudIconButton Color="Color.Inherit" Edge="Edge.Start" Icon="@Icons.Material.Filled.Menu" OnClick="@Model.ToggleSidebar"/>
+    <MudAppBar Color="Color.Transparent" Elevation="25">
+        <MudIconButton Color="Color.Inherit" Edge="Edge.Start" Icon="@Icons.Material.Filled.Menu" OnClick="@Model.ToggleSidebar" />
         <MudText Class="ml-3" Color="Color.Inherit" Typo="Typo.h5">Cloud</MudText>
-        <MudSpacer/>
-        <MudMenu AnchorOrigin="Origin.BottomLeft" Variant="Variant.Text" TransformOrigin="Origin.BottomLeft" Color="Color.Inherit" FullWidth="false" ActivationEvent="MouseEvent.LeftClick">
+        <MudSpacer />
+        <MudMenu ActivationEvent="MouseEvent.LeftClick" AnchorOrigin="Origin.BottomLeft" Color="Color.Inherit" FullWidth="false" TransformOrigin="Origin.BottomLeft" Variant="Variant.Text">
             <ActivatorContent>
-                <MudAvatar Color="Color.Inherit" Elevation="25" Rounded="true" Variant="Variant.Text"/>
+                <MudAvatar Color="Color.Inherit" Elevation="25" Rounded="true" Variant="Variant.Text" />
             </ActivatorContent>
             <ChildContent>
                 <MudMenuItem Disabled="true" Icon="@Icons.Material.Filled.Person3">FirstName LastName</MudMenuItem>
@@ -33,9 +33,9 @@
                 <MudNavLink Icon="@Icons.Material.Filled.Link" Match="NavLinkMatch.All">@Localizer["SharedWithMe"]</MudNavLink>
                 <MudNavLink Icon="@Icons.Material.Filled.Bookmark" Match="NavLinkMatch.All">@Localizer["Bookmarks"]</MudNavLink>
                 <MudNavLink Icon="@Icons.Material.Filled.Delete" Match="NavLinkMatch.All">@Localizer["Deleted"]</MudNavLink>
-                <MudDivider DividerType="DividerType.Middle"/>
+                <MudDivider DividerType="DividerType.Middle" />
                 <MudNavLink Icon="@Icons.Material.Filled.Error" Match="NavLinkMatch.All">@Localizer["Notifications"]</MudNavLink>
-                <MudDivider DividerType="DividerType.Middle"/>
+                <MudDivider DividerType="DividerType.Middle" />
                 <MudNavLink Icon="@Icons.Material.Filled.ManageAccounts" Match="NavLinkMatch.All">@Localizer["ManageUsers"]</MudNavLink>
                 <MudNavLink Icon="@Icons.Material.Filled.AddToDrive" Match="NavLinkMatch.All">@Localizer["ManageRepository"]</MudNavLink>
                 <MudNavLink Icon="@Icons.Material.Filled.DashboardCustomize" Match="NavLinkMatch.All">@Localizer["ManageCodeLists"]</MudNavLink>

@@ -6,6 +6,6 @@
 @inherits PageComponentBase<CultureSelectorViewModel>
 
 <MudSelect AdornmentColor="Color.Inherit" @bind-Value="Model.Culture" CloseIcon="@Icons.Material.Filled.Flag" HelperText="@Localizer["Language"]" Placeholder="@Localizer["SelectLanguage"]" ToStringFunc="@Model.ConvertFunc">
-    <MudSelectItem Value="@(CultureInfo.GetCultureInfo("en"))"/>
-    <MudSelectItem Value="@(CultureInfo.GetCultureInfo("cs"))"/>
+    <MudSelectItem Value="@(CultureInfo.GetCultureInfo("en"))" />
+    <MudSelectItem Value="@(CultureInfo.GetCultureInfo("cs"))" />
 </MudSelect>

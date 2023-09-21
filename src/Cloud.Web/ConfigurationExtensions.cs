@@ -1,9 +1,13 @@
 ﻿using System.Globalization;
-using Cloud.Application.ViewModels.Shared;
-using Cloud.Data;
+using Cloud.Application.Validations;
+using Cloud.Core.Application.Users.Queries;
+using Cloud.Domain.Utilities;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Cloud.Web;
 
@@ -11,6 +15,9 @@ public static class ConfigurationExtensions
 {
     public static IServiceCollection AddSqliteDatabaseSession(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
     {
+        services.AddScoped<Auditor>();
+        services.AddScoped<ISaveChangesInterceptor, Auditor>();
+
         services
             .AddOptions<DataContextOptions>()
             .Bind(config.GetSection(DataContextOptions.SectionName))
@@ -52,10 +59,30 @@ public static class ConfigurationExtensions
         return services;
     }
 
+    public static IServiceCollection AddPasswordHasher(this IServiceCollection services)
+    {
+        services.AddOptions<PasswordHasherOptions>()
+            .ValidateOnStart();
+
+        services.AddSingleton<PasswordHasher>();
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
+
+        return services;
+    }
+
     public static IServiceCollection AddViewModels(this IServiceCollection services)
     {
         services.AddScoped<MainLayoutViewModel>();
         services.AddScoped<CultureSelectorViewModel>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddCqrs(this IServiceCollection services)
+    {
+        services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(typeof(GetUserQuery).Assembly));
+        services.AddValidatorsFromAssembly(typeof(FluentValidationPipelineBehaviour<,>).Assembly, ServiceLifetime.Singleton);
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationPipelineBehaviour<,>));
 
         return services;
     }

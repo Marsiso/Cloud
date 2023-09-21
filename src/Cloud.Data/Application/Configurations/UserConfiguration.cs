@@ -20,6 +20,6 @@ public class UserConfiguration : ChangeTrackingEntityConfiguration<User>
         builder.Property(entity => entity.FamilyName).HasMaxLength(256);
         builder.Property(entity => entity.Password).HasMaxLength(512);
         builder.Property(entity => entity.PasswordSalt).HasMaxLength(512);
-        builder.Property(entity => entity.ProfilePhotoURL).HasMaxLength(2048);
+        builder.Property(entity => entity.ProfilePhotoUrl).HasMaxLength(2048);
     }
 }

@@ -23,8 +23,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Cloud.Web\Cloud.Web.csproj" />
-      <ProjectReference Include="..\Cloud.Application.Tests\Cloud.Application.Tests.csproj" />
+        <ProjectReference Include="..\..\src\Cloud.Web\Cloud.Web.csproj"/>
+        <ProjectReference Include="..\Cloud.Application.Tests\Cloud.Application.Tests.csproj"/>
     </ItemGroup>
+
 
 </Project>

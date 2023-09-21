@@ -10,6 +10,10 @@ public abstract class EntityBaseConfiguration<TEntity> : IEntityTypeConfiguratio
     {
         builder.HasKey(entity => entity.ID);
 
+        builder.Property(entity => entity.ID)
+            .IsRequired()
+            .ValueGeneratedOnAdd();
+
         builder.HasQueryFilter(entity => entity.IsActive);
     }
 }
