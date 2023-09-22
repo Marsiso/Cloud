@@ -1,37 +1,33 @@
-﻿using System.Globalization;
+namespace Cloud.Web;
+
+using System.Globalization;
 using Cloud.Application.ViewModels.Shared;
 using Cloud.Data;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cloud.Web;
-
 public static class ConfigurationExtensions
 {
-    public static IServiceCollection AddSqliteDatabaseSession(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
+    public static IServiceCollection AddSqliteDatabaseSession(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
     {
-        services
-            .AddOptions<DataContextOptions>()
-            .Bind(config.GetSection(DataContextOptions.SectionName))
+        services.AddOptions<DataContextOptions>()
+            .Bind(configuration.GetSection(DataContextOptions.SectionName))
             .ValidateOnStart();
 
-        var contextOptions = config.GetSection(DataContextOptions.SectionName).Get<DataContextOptions>();
+        var contextOptions = configuration.GetSection(DataContextOptions.SectionName).Get<DataContextOptions>();
 
         ArgumentNullException.ThrowIfNull(contextOptions);
 
         services.AddDbContext<DataContext>(options =>
         {
-            options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-            options.UseSqlite();
+            var fullPath = Path.GetFullPath(contextOptions.Source);
+            var pathExists = Path.IsPathRooted(fullPath) && Path.HasExtension(fullPath);
 
-            var fullpath = Path.GetFullPath(contextOptions.Source);
-
-            var pathExists =
-                Path.IsPathRooted(fullpath)
-                && Path.HasExtension(fullpath);
-
-            if (!pathExists) throw new InvalidOperationException();
+            if (!pathExists)
+            {
+                throw new InvalidOperationException();
+            }
 
             var connectionStringBase = $"Data Source={contextOptions.Source};";
 
@@ -40,13 +36,10 @@ public static class ConfigurationExtensions
                 Mode = SqliteOpenMode.ReadWriteCreate
             }.ToString();
 
-            options.UseSqlite(connectionString);
-
-            if (env.IsDevelopment())
-            {
-                options.EnableDetailedErrors();
-                options.EnableSensitiveDataLogging();
-            }
+            options.UseSqlite(connectionString)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
+                .EnableDetailedErrors(environment.IsDevelopment())
+                .EnableSensitiveDataLogging(environment.IsDevelopment());
         });
 
         return services;
@@ -54,22 +47,22 @@ public static class ConfigurationExtensions
 
     public static IServiceCollection AddViewModels(this IServiceCollection services)
     {
-        services.AddScoped<MainLayoutViewModel>();
-        services.AddScoped<CultureSelectorViewModel>();
+        services.AddScoped<MainLayoutViewModel>()
+            .AddScoped<CultureSelectorViewModel>();
 
         return services;
     }
 
-    public static WebApplication UseSqliteInitializer(this WebApplication app)
+    public static WebApplication UseSqliteInitializer(this WebApplication application)
     {
-        var services = app.Services;
-        var env = app.Environment;
+        var services = application.Services;
+        var environment = application.Environment;
 
         using var serviceScope = services.CreateScope();
 
         using var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
 
-        if (env.IsDevelopment())
+        if (environment.IsDevelopment())
         {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
@@ -79,22 +72,22 @@ public static class ConfigurationExtensions
             context.Database.EnsureCreated();
         }
 
-        return app;
+        return application;
     }
 
-    public static WebApplication UseLocalizationResources(this WebApplication app)
+    public static WebApplication UseLocalizationResources(this WebApplication application)
     {
-        var services = app.Services;
+        var services = application.Services;
 
         var supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("cs") };
 
-        app.UseRequestLocalization(new RequestLocalizationOptions
+        application.UseRequestLocalization(new RequestLocalizationOptions
         {
             DefaultRequestCulture = new RequestCulture("en"),
             SupportedCultures = supportedCultures,
             SupportedUICultures = supportedCultures
         });
 
-        return app;
+        return application;
     }
 }

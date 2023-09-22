@@ -1,46 +1,34 @@
-﻿using System.ComponentModel;
-using Microsoft.AspNetCore.Components;
-
 namespace Cloud.Application.ViewModels;
+
+using System.ComponentModel;
+using Microsoft.AspNetCore.Components;
 
 public class PageComponentBase<TViewModel> : ComponentBase where TViewModel : ViewModelBase
 {
-	[Inject] public required TViewModel Model { get; set; }
+    [Inject] public required TViewModel Model { get; set; }
 
-	public void Dispose()
-	{
-		Model.PropertyChanged -= OnModelPropertyChanged;
-	}
+    public void Dispose() => this.Model.PropertyChanged -= this.OnModelPropertyChanged;
 
-	protected override bool ShouldRender()
-	{
-		return Model.Busy is false;
-	}
+    protected override bool ShouldRender() => !this.Model.Busy;
 
-	protected override Task OnInitializedAsync()
-	{
-		Model.PropertyChanged += OnModelPropertyChanged;
+    protected override Task OnInitializedAsync()
+    {
+        this.Model.PropertyChanged += this.OnModelPropertyChanged;
 
-		return Model.OnViewModelInitialized();
-	}
+        return this.Model.OnViewModelInitialized();
+    }
 
-	protected override Task OnParametersSetAsync()
-	{
-		return Model.OnViewModelParametersSet();
-	}
+    protected override Task OnParametersSetAsync() => this.Model.OnViewModelParametersSet();
 
-	protected override Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			return Model.OnViewModelAfterRender();
-		}
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            return this.Model.OnViewModelAfterRender();
+        }
 
-		return base.OnAfterRenderAsync(firstRender);
-	}
+        return base.OnAfterRenderAsync(firstRender);
+    }
 
-	private async void OnModelPropertyChanged(object? sender, PropertyChangedEventArgs args)
-	{
-		await InvokeAsync(StateHasChanged);
-	}
+    private async void OnModelPropertyChanged(object? sender, PropertyChangedEventArgs args) => await this.InvokeAsync(this.StateHasChanged);
 }

@@ -1,9 +1,9 @@
-﻿using Cloud.Data.Application.Configurations.Common;
+namespace Cloud.Data.Application.Configurations;
+
+using Cloud.Data.Application.Configurations.Common;
 using Cloud.Domain.Application.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Cloud.Data.Application.Configurations;
 
 public class UserConfiguration : ChangeTrackingEntityConfiguration<User>
 {

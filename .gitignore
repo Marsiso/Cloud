@@ -3,3 +3,9 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+/.vs/
+/Cloud.v3.ncrunchsolution.user
+/src/Cloud.Web/Cloud.Web.csproj.user
+/src/Cloud.Web/Cloud.db
+/src/Cloud.Web/Cloud.db-shm
+/src/Cloud.Web/Cloud.db-wal
