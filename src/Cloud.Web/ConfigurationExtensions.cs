@@ -2,7 +2,11 @@ namespace Cloud.Web;
 
 using System.Globalization;
 using Cloud.Application.ViewModels;
+using Cloud.Core.Utilities;
 using Cloud.Data;
+using Cloud.Domain.Utilities;
+using Cloud.Domain.Validations;
+using FluentValidation;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -52,6 +56,21 @@ public static class ConfigurationExtensions
                 .AddClasses(classes => classes.AssignableTo<ViewModelBase>())
                 .AsSelf()
                 .WithScopedLifetime());
+
+        return services;
+    }
+
+    public static IServiceCollection AddUtilities(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSingleton<IValidator<HashProviderOptions>, HashProviderOptionsValidator>();
+
+        services.AddOptions<HashProviderOptions>()
+            .Bind(configuration.GetSection(HashProviderOptions.SectionName))
+            .ValidateFluently()
+            .ValidateOnStart();
+
+        services.AddSingleton<HashProvider>();
+        services.AddSingleton<IHashProvider, HashProvider>();
 
         return services;
     }

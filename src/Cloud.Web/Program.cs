@@ -4,8 +4,8 @@ using MudBlazor.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
-var config = builder.Configuration;
-var env = builder.Environment;
+var configuration = builder.Configuration;
+var environment = builder.Environment;
 
 services.AddControllers();
 services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -13,16 +13,17 @@ services.AddLocalization(options => options.ResourcesPath = "Resources");
 services.AddRazorPages();
 services.AddServerSideBlazor();
 services.AddViewModels();
+services.AddUtilities(configuration);
 
 services.AddMudServices();
 
-services.AddSqliteDatabaseSession(config, env);
+services.AddSqliteDatabaseSession(configuration, environment);
 
 var app = builder.Build();
 
 app.UseSqliteInitializer();
 
-if (env.IsDevelopment())
+if (environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
