@@ -10,11 +10,15 @@ using FluentValidation;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 public static class ConfigurationExtensions
 {
     public static IServiceCollection AddSqliteDatabaseSession(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
     {
+        services.AddScoped<Auditor>();
+        services.AddScoped<ISaveChangesInterceptor, Auditor>();
+
         services.AddOptions<DataContextOptions>()
             .Bind(configuration.GetSection(DataContextOptions.SectionName))
             .ValidateOnStart();
