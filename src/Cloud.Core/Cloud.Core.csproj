@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Cloud.Data\Cloud.Data.csproj" />
+      <ProjectReference Include="..\Cloud.Domain\Cloud.Domain.csproj" />
     </ItemGroup>
 
 </Project>
