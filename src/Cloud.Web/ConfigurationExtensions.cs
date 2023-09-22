@@ -45,6 +45,7 @@ public static class ConfigurationExtensions
             }.ToString();
 
             options.UseSqlite(connectionString)
+                .UseOpenIddict()
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
                 .EnableDetailedErrors(environment.IsDevelopment())
                 .EnableSensitiveDataLogging(environment.IsDevelopment());
