@@ -1,8 +1,8 @@
-﻿using Cloud.Domain.Application.Models.Common;
+namespace Cloud.Data.Application.Configurations.Common;
+
+using Cloud.Domain.Application.Models.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Cloud.Data.Application.Configurations.Common;
 
 public abstract class EntityBaseConfiguration<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : EntityBase
 {

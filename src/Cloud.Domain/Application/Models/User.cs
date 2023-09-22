@@ -1,6 +1,6 @@
-﻿using Cloud.Domain.Application.Models.Common;
-
 namespace Cloud.Domain.Application.Models;
+
+using Cloud.Domain.Application.Models.Common;
 
 public class User : ChangeTrackingEntity
 {

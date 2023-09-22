@@ -1,17 +1,14 @@
-﻿namespace Cloud.Application.ViewModels.Shared;
+namespace Cloud.Application.ViewModels.Shared;
 
 public class MainLayoutViewModel : ViewModelBase
 {
-    private bool _isSidebarVisible;
+    private bool isSidebarVisible;
 
     public bool IsSidebarVisible
     {
-        get => _isSidebarVisible;
-        set => SetValue(ref _isSidebarVisible, value);
+        get => this.isSidebarVisible;
+        set => this.SetValue(ref this.isSidebarVisible, value);
     }
 
-    public void ToggleSidebar()
-    {
-        IsSidebarVisible = !IsSidebarVisible;
-    }
+    public void ToggleSidebar() => this.IsSidebarVisible = !this.IsSidebarVisible;
 }

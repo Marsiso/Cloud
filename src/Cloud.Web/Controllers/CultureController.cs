@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
-
 namespace Cloud.Web.Controllers;
+
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[Controller]/[Action]")]
@@ -11,9 +11,10 @@ public class CultureController : ControllerBase
     {
         if (!string.IsNullOrWhiteSpace(culture))
         {
-            HttpContext.Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)));
+            var cultureInfo = new RequestCulture(culture);
+            this.HttpContext.Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(cultureInfo));
         }
 
-        return LocalRedirect(redirectUri ?? "/");
+        return this.LocalRedirect(redirectUri ?? "/");
     }
 }

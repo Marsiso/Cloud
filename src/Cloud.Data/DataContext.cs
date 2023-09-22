@@ -1,7 +1,7 @@
-﻿using Cloud.Domain.Application.Models;
-using Microsoft.EntityFrameworkCore;
-
 namespace Cloud.Data;
+
+using Cloud.Domain.Application.Models;
+using Microsoft.EntityFrameworkCore;
 
 public class DataContext : DbContext
 {

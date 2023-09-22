@@ -1,39 +1,38 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Components;
-
 namespace Cloud.Application.ViewModels.Shared;
+
+using System.Globalization;
+using Microsoft.AspNetCore.Components;
 
 public class CultureSelectorViewModel : ViewModelBase
 {
-    public readonly NavigationManager NavigationManager;
+    private readonly NavigationManager navigation;
 
-    private CultureInfo _culture = Thread.CurrentThread.CurrentCulture;
+    private CultureInfo? culture = Thread.CurrentThread.CurrentCulture;
 
+    public Func<CultureInfo, string>? CultureConverter { get; } = culture => culture.Name;
 
-    public Func<CultureInfo, string> ConvertFunc = culture => culture.Name;
+    public CultureSelectorViewModel(NavigationManager navigation) => this.navigation = navigation;
 
-    public CultureSelectorViewModel(NavigationManager navigationManager)
+    public CultureInfo? Culture
     {
-        NavigationManager = navigationManager;
-    }
-
-    public CultureInfo Culture
-    {
-        get => _culture;
+        get => this.culture;
         set
         {
-            SetValue(ref _culture, value);
-            RequestCultureChange();
+            this.SetValue(ref this.culture, value);
+            this.RequestCultureChange();
         }
     }
 
     protected void RequestCultureChange()
     {
-        if (string.IsNullOrWhiteSpace(_culture.Name)) return;
+        if (string.IsNullOrWhiteSpace(this.culture?.Name))
+        {
+            return;
+        }
 
-        var returnUri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
-        var queryString = $"?culture={Uri.EscapeDataString(_culture.Name)}&" + $"redirectUri={Uri.EscapeDataString(returnUri)}";
+        var returnUri = new Uri(this.navigation.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+        var queryString = $"?culture={Uri.EscapeDataString(this.culture.Name)}&redirectUri={Uri.EscapeDataString(returnUri)}";
 
-        NavigationManager.NavigateTo("Culture/SetCulture" + queryString, forceLoad: true);
+        this.navigation.NavigateTo("Culture/SetCulture" + queryString, forceLoad: true);
     }
 }
