@@ -9,7 +9,7 @@ public class CultureSelectorViewModel : ViewModelBase
 
     private CultureInfo? culture = Thread.CurrentThread.CurrentCulture;
 
-    public Func<CultureInfo, string>? CultureConverter { get; } = culture => culture.Name;
+    public Func<CultureInfo, string?>? CultureConverter { get; } = culture => culture?.Name;
 
     public CultureSelectorViewModel(NavigationManager navigation) => this.navigation = navigation;
 

@@ -1,7 +1,7 @@
 namespace Cloud.Web;
 
 using System.Globalization;
-using Cloud.Application.ViewModels.Shared;
+using Cloud.Application.ViewModels;
 using Cloud.Data;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Data.Sqlite;
@@ -47,8 +47,11 @@ public static class ConfigurationExtensions
 
     public static IServiceCollection AddViewModels(this IServiceCollection services)
     {
-        services.AddScoped<MainLayoutViewModel>()
-            .AddScoped<CultureSelectorViewModel>();
+        services.Scan(selectors =>
+            selectors.FromAssemblyOf<ViewModelBase>()
+                .AddClasses(classes => classes.AssignableTo<ViewModelBase>())
+                .AsSelf()
+                .WithScopedLifetime());
 
         return services;
     }
@@ -59,7 +62,6 @@ public static class ConfigurationExtensions
         var environment = application.Environment;
 
         using var serviceScope = services.CreateScope();
-
         using var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
 
         if (environment.IsDevelopment())
@@ -77,8 +79,6 @@ public static class ConfigurationExtensions
 
     public static WebApplication UseLocalizationResources(this WebApplication application)
     {
-        var services = application.Services;
-
         var supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("cs") };
 
         application.UseRequestLocalization(new RequestLocalizationOptions

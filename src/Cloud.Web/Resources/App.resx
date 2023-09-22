@@ -1,83 +1,84 @@
-﻿<root>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>1.3</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <data name="AboutApplication" xml:space="preserve">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainLayoutAboutApplication" xml:space="preserve">
         <value>About application</value>
     </data>
-    <data name="Account" xml:space="preserve">
+  <data name="MainLayoutAccount" xml:space="preserve">
         <value>Account</value>
     </data>
-    <data name="Bookmarks" xml:space="preserve">
+  <data name="MainLayoutBookmarks" xml:space="preserve">
         <value>Bookmarks</value>
     </data>
-    <data name="Deleted" xml:space="preserve">
+  <data name="MainLayoutDeleted" xml:space="preserve">
         <value>Deleted</value>
     </data>
-    <data name="Email" xml:space="preserve">
+  <data name="MainLayoutEmail" xml:space="preserve">
         <value>Emai</value>
     </data>
-    <data name="FamilyName" xml:space="preserve">
+  <data name="MainLayoutFamilyName" xml:space="preserve">
         <value>Family name</value>
     </data>
-    <data name="Files" xml:space="preserve">
+  <data name="MainLayoutFiles" xml:space="preserve">
         <value>Files</value>
     </data>
-    <data name="GivenName" xml:space="preserve">
+  <data name="MainLayoutGivenName" xml:space="preserve">
         <value>Given name</value>
     </data>
-    <data name="Index" xml:space="preserve">
-        <value>Index</value>
+  <data name="Home" xml:space="preserve">
+        <value>Home</value>
     </data>
-    <data name="Language" xml:space="preserve">
+  <data name="MainLayoutLanguage" xml:space="preserve">
         <value>Language</value>
     </data>
-    <data name="Login" xml:space="preserve">
+  <data name="MainLayoutLogin" xml:space="preserve">
         <value>Login</value>
     </data>
-    <data name="Logout" xml:space="preserve">
+  <data name="MainLayoutLogout" xml:space="preserve">
         <value>Logout</value>
     </data>
-    <data name="Logs" xml:space="preserve">
+  <data name="MainLayoutLogs" xml:space="preserve">
         <value>Logs</value>
     </data>
-    <data name="ManageCodeLists" xml:space="preserve">
+  <data name="MainLayoutManageCodeLists" xml:space="preserve">
         <value>Manage code lists</value>
     </data>
-    <data name="ManageRepository" xml:space="preserve">
+  <data name="MainLayoutManageRepository" xml:space="preserve">
         <value>Manage repository</value>
     </data>
-    <data name="ManageTasks" xml:space="preserve">
+  <data name="MainLayoutManageTasks" xml:space="preserve">
         <value>Manage tasks</value>
     </data>
-    <data name="ManageUsers" xml:space="preserve">
+  <data name="MainLayoutManageUsers" xml:space="preserve">
         <value>Manage users</value>
     </data>
-    <data name="Notifications" xml:space="preserve">
+  <data name="MainLayoutNotifications" xml:space="preserve">
         <value>Notifications</value>
     </data>
-    <data name="Settings" xml:space="preserve">
+  <data name="MainLayoutSettings" xml:space="preserve">
         <value>Settings</value>
     </data>
-    <data name="SharedWithMe" xml:space="preserve">
+  <data name="MainLayoutSharedWithMe" xml:space="preserve">
         <value>Shared with me</value>
     </data>
-    <data name="Statistics" xml:space="preserve">
+  <data name="MainLayoutStatistics" xml:space="preserve">
         <value>Statistics</value>
     </data>
-    <data name="History" xml:space="preserve">
+  <data name="MainLayoutHistory" xml:space="preserve">
         <value>History</value>
     </data>
-    <data name="SelectLanguage" xml:space="preserve">
+  <data name="MainLayoutSelectLanguage" xml:space="preserve">
         <value>Select language</value>
     </data>
 </root>
