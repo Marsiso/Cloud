@@ -8,6 +8,7 @@ var configuration = builder.Configuration;
 var environment = builder.Environment;
 
 services.AddControllers();
+services.AddControllersWithViews();
 services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 services.AddRazorPages();
@@ -19,29 +20,33 @@ services.AddMudServices();
 
 services.AddSqliteDatabaseSession(configuration, environment);
 
-var app = builder.Build();
+services.AddIdentityProvider(configuration);
 
-app.UseSqliteInitializer();
+var application = builder.Build();
+
+application.UseSqliteInitializer();
 
 if (environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    application.UseDeveloperExceptionPage();
 }
 else
 {
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
+    application.UseExceptionHandler("/Error");
+    application.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+application.UseHttpsRedirection();
+application.UseStaticFiles();
 
-app.UseLocalizationResources();
+application.UseLocalizationResources();
 
-app.UseRouting();
+application.UseRouting();
 
-app.MapControllers();
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+application.UseAuthentication();
 
-app.Run();
+application.MapControllers();
+application.MapBlazorHub();
+application.MapFallbackToPage("/_Host");
+
+application.Run();

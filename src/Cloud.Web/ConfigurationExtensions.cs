@@ -1,12 +1,14 @@
 namespace Cloud.Web;
 
 using System.Globalization;
+using Cloud.Application.Hosted;
 using Cloud.Application.ViewModels;
 using Cloud.Core.Utilities;
 using Cloud.Data;
 using Cloud.Domain.Utilities;
 using Cloud.Domain.Validations;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -76,6 +78,33 @@ public static class ConfigurationExtensions
 
         services.AddSingleton<HashProvider>();
         services.AddSingleton<IHashProvider, HashProvider>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddIdentityProvider(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => options.LoginPath = "/account/login");
+
+        services.AddOpenIddict()
+            .AddCore(options =>
+                options.UseEntityFrameworkCore()
+                    .UseDbContext<DataContext>())
+            .AddServer(options =>
+                options.AllowClientCredentialsFlow()
+                    /*.RequireProofKeyForCodeExchange()*/
+                    .SetAuthorizationEndpointUris("/connect/authorize")
+                    .SetTokenEndpointUris("/connect/token")
+                    .AddEphemeralEncryptionKey()
+                    .AddEphemeralSigningKey()
+                    .DisableAccessTokenEncryption()
+                    .RegisterScopes("api")
+                    .UseAspNetCore()
+                    .EnableTokenEndpointPassthrough())
+            .AddClient();
+
+        services.AddHostedService<IdentityProviderDataGenerator>();
 
         return services;
     }
